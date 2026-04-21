@@ -1,0 +1,95 @@
+/* =========================
+   Webora Premium Animations
+   ========================= */
+
+/* Smooth global transitions */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Fade Up Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide In Left */
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In Right */
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* HERO Animation */
+.hero-title {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.hero-subtext {
+  animation: fadeUp 1s ease forwards;
+}
+
+.hero-actions {
+  animation: fadeUp 1.2s ease forwards;
+}
+
+/* Section Reveal */
+section {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Cards Hover Effect */
+.service-card,
+.why-grid div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover,
+.why-grid div:hover {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Button Hover Animation */
+.btn-primary,
+.btn-secondary {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
