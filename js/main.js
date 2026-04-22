@@ -50,3 +50,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("✅ Webora main.js loaded");
 });
+
+// 🔹 Contact Form → Firestore
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = contactForm.name.value.trim();
+    const email = contactForm.email.value.trim();
+    const message = contactForm.message.value.trim();
+
+    if (!name || !email || !message) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "contacts"), {
+        name,
+        email,
+        message,
+        createdAt: serverTimestamp(),
+      });
+
+      alert("Message sent successfully!");
+      contactForm.reset();
+    } catch (error) {
+      console.error("Firestore error:", error);
+      alert("Failed to send message. Try again later.");
+    }
+  });
+}
