@@ -1,0 +1,44 @@
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    padding: 15px 0;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+
+  .error-code {
+    font-size: 5rem;
+  }
+}
