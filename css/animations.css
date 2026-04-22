@@ -1,0 +1,69 @@
+/* =========================
+   FADE & SLIDE ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.fade {
+  animation: fadeIn 1s ease forwards;
+}
+
+/* =========================
+   HOVER EFFECTS
+========================= */
+
+.card {
+  background: #111123;
+  border-radius: 18px;
+  padding: 30px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   BUTTON RIPPLE
+========================= */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.12);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
