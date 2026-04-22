@@ -69,14 +69,19 @@ if (contactForm) {
 
     try {
       await addDoc(collection(db, "contacts"), {
-        name,
-        email,
-        message,
-        createdAt: serverTimestamp(),
-      });
+  name,
+  email,
+  message,
+  createdAt: serverTimestamp(),
+});
 
-      alert("Message sent successfully!");
-      contactForm.reset();
+// 🔥 EmailJS trigger
+if (typeof window.sendEmail === "function") {
+  window.sendEmail({ name, email, message });
+}
+
+alert("Message sent successfully!");
+contactForm.reset();
     } catch (error) {
       console.error("Firestore error:", error);
       alert("Failed to send message. Try again later.");
