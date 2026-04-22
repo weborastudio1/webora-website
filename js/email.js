@@ -1,49 +1,30 @@
 /* =========================
-   CONTACT FORM HANDLER
-   EmailJS ready (safe fallback)
+   EMAILJS SETUP (FINAL)
+   Uses Firebase + EmailJS
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("#contact-form");
+// 1️⃣ Initialize EmailJS
+(function () {
+  emailjs.init("ocBATP0mkBJ-D77lJ"); // ✅ Public Key
+  console.log("✅ EmailJS initialized");
+})();
 
-  if (!form) {
-    console.log("ℹ️ No contact form on this page");
-    return;
-  }
+// 2️⃣ Send Email Function (called from main.js)
+function sendEmail(data) {
+  emailjs
+    .send("service_yqm5y8c", "template_qv7ljuf", {
+      name: data.name,
+      email: data.email,
+      message: data.message,
+      date: new Date().toLocaleString()
+    })
+    .then(() => {
+      console.log("📩 Email sent successfully");
+    })
+    .catch((error) => {
+      console.error("❌ EmailJS error:", error);
+    });
+}
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const status = document.querySelector("#form-status");
-    if (status) status.textContent = "Sending...";
-
-    // 🛑 SAFE CHECK — EmailJS loaded or not
-    if (typeof emailjs === "undefined") {
-      console.warn("⚠️ EmailJS not configured yet");
-      if (status) {
-        status.textContent = "Form ready. Email service not connected yet.";
-      }
-      return;
-    }
-
-    emailjs
-      .sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        this,
-        "YOUR_PUBLIC_KEY"
-      )
-      .then(
-        () => {
-          if (status) status.textContent = "Message sent successfully!";
-          form.reset();
-        },
-        (error) => {
-          console.error("EmailJS Error:", error);
-          if (status) status.textContent = "Failed to send message.";
-        }
-      );
-  });
-
-  console.log("✅ email.js loaded");
-});
+// 3️⃣ Make function global (important)
+window.sendEmail = sendEmail;
