@@ -35,13 +35,37 @@
 
 <section class="section">
   <div class="container form-container">
-    <form id="contactForm" class="form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit" class="btn primary">Send Message</button>
+
+    <!-- ✅ CONTACT FORM -->
+    <form id="contactForm" class="form" novalidate>
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        required
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        required
+      />
+
+      <textarea
+        name="message"
+        placeholder="Your Message"
+        required
+      ></textarea>
+
+      <button type="submit" class="btn primary">
+        Send Message
+      </button>
+
+      <!-- optional status text -->
       <p class="form-status"></p>
     </form>
+
   </div>
 </section>
 
@@ -51,13 +75,14 @@
   </div>
 </footer>
 
-<!-- EmailJS CDN (VERY IMPORTANT) -->
+<!-- 🔥 EmailJS CDN (MUST be BEFORE email.js) -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs@3/dist/email.min.js"></script>
 
-<!-- Your Firebase / form logic -->
+<!-- 🔥 Main Firebase logic (MODULE) -->
 <script type="module" src="/js/main.js"></script>
 
-<!-- EmailJS helper -->
+<!-- 🔥 EmailJS helper (NORMAL script) -->
 <script src="/js/email.js"></script>
+
 </body>
 </html>
