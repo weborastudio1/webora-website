@@ -5,8 +5,9 @@ import {
   addDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 /* =========================
-   MAIN SITE JS
+   MAIN SITE JS (FINAL)
    Safe for all pages
 ========================= */
 
@@ -15,12 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      SCROLL ANIMATIONS
   ========================= */
-
   const animatedElements = document.querySelectorAll(".animate");
 
   const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
+    (entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("fade");
         }
@@ -29,32 +29,30 @@ document.addEventListener("DOMContentLoaded", () => {
     { threshold: 0.15 }
   );
 
-  animatedElements.forEach(el => observer.observe(el));
+  animatedElements.forEach((el) => observer.observe(el));
 
   /* =========================
-     NAV ACTIVE LINK (OPTIONAL)
+     NAV ACTIVE LINK
   ========================= */
-
   const links = document.querySelectorAll(".nav-links a");
   const currentPath = window.location.pathname.split("/").pop();
 
-  links.forEach(link => {
+  links.forEach((link) => {
     if (link.getAttribute("href") === currentPath) {
       link.style.color = "#6c63ff";
     }
   });
 
   /* =========================
-     SAFE CONSOLE LOG
+     CONTACT FORM HANDLER
   ========================= */
+  const contactForm = document.getElementById("contactForm");
 
-  console.log("✅ Webora main.js loaded");
-});
+  if (!contactForm) {
+    console.log("ℹ️ No contact form on this page");
+    return;
+  }
 
-// 🔹 Contact Form → Firestore
-const contactForm = document.getElementById("contactForm");
-
-if (contactForm) {
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -67,24 +65,36 @@ if (contactForm) {
       return;
     }
 
+    contactForm.querySelector("button").disabled = true;
+
     try {
+      // ✅ 1️⃣ Save to Firestore
       await addDoc(collection(db, "contacts"), {
-  name,
-  email,
-  message,
-  createdAt: serverTimestamp(),
-});
+        name,
+        email,
+        message,
+        createdAt: serverTimestamp(),
+      });
 
-// 🔥 EmailJS trigger
-if (typeof window.sendEmail === "function") {
-  window.sendEmail({ name, email, message });
-}
+      console.log("✅ Saved to Firestore");
 
-alert("Message sent successfully!");
-contactForm.reset();
+      // ✅ 2️⃣ Trigger EmailJS (optional but safe)
+      if (typeof window.sendEmail === "function") {
+        window.sendEmail({ name, email, message });
+      } else {
+        console.warn("⚠️ EmailJS not loaded");
+      }
+
+      alert("Message sent successfully!");
+      contactForm.reset();
+
     } catch (error) {
-      console.error("Firestore error:", error);
+      console.error("❌ Firestore error:", error);
       alert("Failed to send message. Try again later.");
+    } finally {
+      contactForm.querySelector("button").disabled = false;
     }
   });
-}
+
+  console.log("✅ Webora main.js loaded");
+});
